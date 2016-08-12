@@ -28,6 +28,7 @@ import ru.mystamps.web.dao.dto.UsersActivationDto
 import ru.mystamps.web.model.ActivateAccountForm
 import ru.mystamps.web.tests.DateUtils
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class UserServiceImplTest extends Specification {
 	
 	private static Integer ANY_USER_ID = TestObjects.TEST_USER_ID

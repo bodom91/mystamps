@@ -21,6 +21,7 @@ import spock.lang.Specification
 
 import ru.mystamps.web.dao.ScottCatalogDao
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class ScottCatalogServiceImplTest extends Specification {
 	
 	private ScottCatalogDao scottCatalogDao = Mock()

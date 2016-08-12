@@ -21,6 +21,7 @@ import spock.lang.Specification
 
 import ru.mystamps.web.dao.MichelCatalogDao
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class MichelCatalogServiceImplTest extends Specification {
 	
 	private MichelCatalogDao michelCatalogDao = Mock()

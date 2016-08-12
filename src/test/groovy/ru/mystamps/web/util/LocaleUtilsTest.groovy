@@ -20,6 +20,7 @@ package ru.mystamps.web.util
 import spock.lang.Specification
 import spock.lang.Unroll
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class LocaleUtilsTest extends Specification {
 	
 	//
@@ -27,6 +28,7 @@ class LocaleUtilsTest extends Specification {
 	//
 	
 	@Unroll
+	@SuppressWarnings('UnnecessaryBooleanExpression')
 	def "getLanguageOrNull() should extract language '#language' from locale '#locale'"(Locale locale, String language) {
 		when:
 			String result = LocaleUtils.getLanguageOrNull(locale)
@@ -44,6 +46,7 @@ class LocaleUtilsTest extends Specification {
 	//
 	
 	@Unroll
+	@SuppressWarnings('UnnecessaryBooleanExpression')
 	def "getLanguageOrDefault() should returns '#expected' for #locale/#value"(Locale locale, String value, String expected) {
 		when:
 			String result = LocaleUtils.getLanguageOrDefault(locale, value)

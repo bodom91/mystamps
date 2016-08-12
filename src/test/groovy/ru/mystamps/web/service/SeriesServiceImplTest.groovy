@@ -32,6 +32,7 @@ import ru.mystamps.web.dao.dto.SitemapInfoDto
 import ru.mystamps.web.service.dto.Currency
 import ru.mystamps.web.tests.DateUtils
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class SeriesServiceImplTest extends Specification {
 	private static final BigDecimal ANY_PRICE = new BigDecimal('17')
 	private static final Integer ANY_IMAGE_ID = 18

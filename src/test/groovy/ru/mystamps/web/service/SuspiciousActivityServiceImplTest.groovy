@@ -23,6 +23,7 @@ import spock.lang.Unroll
 import ru.mystamps.web.dao.SuspiciousActivityDao
 import ru.mystamps.web.dao.dto.SuspiciousActivityDto
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class SuspiciousActivityServiceImplTest extends Specification {
 	
 	private SuspiciousActivityDao suspiciousActivityDao = Mock()

@@ -27,6 +27,7 @@ import ru.mystamps.web.dao.dto.ImageDto
 import ru.mystamps.web.dao.dto.ImageInfoDto
 import ru.mystamps.web.service.exception.ImagePersistenceException
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class ImageServiceImplTest extends Specification {
 
 	private ImageDao imageDao = Mock()

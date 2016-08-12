@@ -28,6 +28,7 @@ import ru.mystamps.web.service.dto.SendUsersActivationDto
 import ru.mystamps.web.tests.DateUtils
 import ru.mystamps.web.validation.ValidationRules
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class UsersActivationServiceImplTest extends Specification {
 	
 	private UsersActivationDao usersActivationDao = Mock()

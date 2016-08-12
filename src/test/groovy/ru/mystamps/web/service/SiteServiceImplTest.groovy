@@ -25,6 +25,7 @@ import ru.mystamps.web.dao.SuspiciousActivityDao
 import ru.mystamps.web.dao.dto.AddSuspiciousActivityDbDto
 import ru.mystamps.web.tests.DateUtils
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class SiteServiceImplTest extends Specification {
 	private static final String TEST_TYPE         = TestObjects.TEST_ACTIVITY_TYPE
 	private static final String TEST_PAGE         = TestObjects.TEST_ACTIVITY_PAGE

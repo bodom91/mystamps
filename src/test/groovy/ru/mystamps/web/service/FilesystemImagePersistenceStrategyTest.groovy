@@ -27,6 +27,7 @@ import ru.mystamps.web.service.exception.ImagePersistenceException
 
 import java.nio.file.Path
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class FilesystemImagePersistenceStrategyTest extends Specification {
 	private static final STORAGE_DIR = File.separator + 'tmp'
 	

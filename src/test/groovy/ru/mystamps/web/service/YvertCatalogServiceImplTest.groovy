@@ -21,6 +21,7 @@ import spock.lang.Specification
 
 import ru.mystamps.web.dao.YvertCatalogDao
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class YvertCatalogServiceImplTest extends Specification {
 	
 	private YvertCatalogDao yvertCatalogDao = Mock()

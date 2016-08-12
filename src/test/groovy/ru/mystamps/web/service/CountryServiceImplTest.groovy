@@ -28,6 +28,7 @@ import ru.mystamps.web.dao.dto.UrlEntityDto
 import ru.mystamps.web.tests.DateUtils
 import ru.mystamps.web.util.SlugUtils
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class CountryServiceImplTest extends Specification {
 	
 	private AddCountryForm form

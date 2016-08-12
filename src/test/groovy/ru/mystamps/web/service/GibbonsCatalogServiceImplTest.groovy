@@ -21,6 +21,7 @@ import spock.lang.Specification
 
 import ru.mystamps.web.dao.GibbonsCatalogDao
 
+@SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class GibbonsCatalogServiceImplTest extends Specification {
 	
 	private GibbonsCatalogDao gibbonsCatalogDao = Mock()
