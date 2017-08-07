@@ -65,14 +65,9 @@ public class ServicesConfig {
 	@Bean
 	public CronService getCronService() {
 		return new CronServiceImpl(
-			getCategoryService(),
-			getCountryService(),
-			getCollectionService(),
-			getSeriesService(),
-			getSuspiciousActivityService(),
-			getUserService(),
 			getUsersActivationService(),
-			getMailService()
+			getMailService(),
+			getReportService()
 		);
 	}
 	
@@ -109,6 +104,13 @@ public class ServicesConfig {
 	@Bean
 	public ReportService getReportService() {
 		return new ReportServiceImpl(
+			getCategoryService(),
+			getCountryService(),
+			getCollectionService(),
+			getSeriesService(),
+			getSuspiciousActivityService(),
+			daoConfig.getUserDao(),
+			daoConfig.getUsersActivationDao(),
 			messageSource,
 			new Locale(env.getProperty("app.mail.admin.lang", "en"))
 		);

@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.RequiredArgsConstructor;
 
 import ru.mystamps.web.Url;
-import ru.mystamps.web.service.CronService;
 import ru.mystamps.web.service.ReportService;
 
 /**
@@ -35,14 +34,11 @@ import ru.mystamps.web.service.ReportService;
 public class ReportController {
 
 	private final ReportService reportService;
-	private final CronService cronService;
 
 	@GetMapping(path = Url.DAILY_STATISTICS, produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String showDailyReport() {
-		return reportService.prepareDailyStatistics(
-			cronService.getDailyReport()
-		);
+		return reportService.prepareDailyStatistics(reportService.getDailyReport());
 	}
 
 }

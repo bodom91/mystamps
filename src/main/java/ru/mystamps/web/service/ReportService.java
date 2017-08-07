@@ -24,4 +24,5 @@ import ru.mystamps.web.service.dto.AdminDailyReport;
  */
 public interface ReportService {
 	String prepareDailyStatistics(AdminDailyReport report);
+	AdminDailyReport getDailyReport();
 }

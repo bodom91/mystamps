@@ -17,16 +17,21 @@
  */
 package ru.mystamps.web.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.commons.lang3.time.DatePrinter;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import org.springframework.context.MessageSource;
 
+import ru.mystamps.web.dao.UserDao;
+import ru.mystamps.web.dao.UsersActivationDao;
 import ru.mystamps.web.service.dto.AdminDailyReport;
 
 /**
@@ -34,14 +39,35 @@ import ru.mystamps.web.service.dto.AdminDailyReport;
  */
 public class ReportServiceImpl implements ReportService {
 
+	private final CategoryService categoryService;
+	private final CountryService countryService;
+	private final CollectionService collectionService;
+	private final SeriesService seriesService;
+	private final SuspiciousActivityService suspiciousActivityService;
+	private final UserDao userDao;
+	private final UsersActivationDao usersActivationDao;
 	private final MessageSource messageSource;
-	private final DatePrinter shortDatePrinter;
 	private final Locale adminLang;
+	private final DatePrinter shortDatePrinter;
 	
 	public ReportServiceImpl(
+		CategoryService categoryService,
+		CountryService countryService,
+		CollectionService collectionService,
+		SeriesService seriesService,
+		SuspiciousActivityService suspiciousActivityService,
+		UserDao userDao,
+		UsersActivationDao usersActivationDao,
 		MessageSource messageSource,
 		Locale adminLang) {
-		
+
+		this.categoryService = categoryService;
+		this.countryService = countryService;
+		this.collectionService = collectionService;
+		this.seriesService = seriesService;
+		this.suspiciousActivityService = suspiciousActivityService;
+		this.userDao = userDao;
+		this.usersActivationDao = usersActivationDao;
 		this.messageSource = messageSource;
 		this.adminLang = adminLang;
 
@@ -77,6 +103,58 @@ public class ReportServiceImpl implements ReportService {
 		put(ctx, "bad_request_cnt", -1L);  // TODO: #122
 
 		return new StrSubstitutor(ctx).replace(template);
+	}
+
+	// This method should have @PreAuthorize(VIEW_DAILY_STATS) but we can't put it here because it
+	// breaks CronServiceImpl.sendDailyStatistics() method.
+	@Override
+	public AdminDailyReport getDailyReport() {
+		Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+		Date yesterday = DateUtils.addDays(today, -1);
+
+		AdminDailyReport report = new AdminDailyReport();
+		report.setStartDate(yesterday);
+		report.setEndDate(today);
+		report.setAddedCategoriesCounter(categoryService.countAddedSince(yesterday));
+		report.setAddedCountriesCounter(countryService.countAddedSince(yesterday));
+
+		long untranslatedCategories = categoryService.countUntranslatedNamesSince(yesterday);
+		report.setUntranslatedCategoriesCounter(untranslatedCategories);
+
+		long untranslatedCountries = countryService.countUntranslatedNamesSince(yesterday);
+		report.setUntranslatedCountriesCounter(untranslatedCountries);
+
+		report.setAddedSeriesCounter(seriesService.countAddedSince(yesterday));
+		report.setUpdatedSeriesCounter(seriesService.countUpdatedSince(yesterday));
+		report.setUpdatedCollectionsCounter(collectionService.countUpdatedSince(yesterday));
+		report.setRegistrationRequestsCounter(usersActivationDao.countCreatedSince(yesterday));
+		report.setRegisteredUsersCounter(userDao.countActivatedSince(yesterday));
+
+		long notFoundCounter = suspiciousActivityService.countByTypeSince(
+			SiteServiceImpl.PAGE_NOT_FOUND,
+			yesterday
+		);
+		report.setNotFoundCounter(notFoundCounter);
+
+		long failedAuthCounter = suspiciousActivityService.countByTypeSince(
+			SiteServiceImpl.AUTHENTICATION_FAILED,
+			yesterday
+		);
+		report.setFailedAuthCounter(failedAuthCounter);
+
+		long missingCsrfCounter = suspiciousActivityService.countByTypeSince(
+			SiteServiceImpl.MISSING_CSRF_TOKEN,
+			yesterday
+		);
+		report.setMissingCsrfCounter(missingCsrfCounter);
+
+		long invalidCsrfCounter = suspiciousActivityService.countByTypeSince(
+			SiteServiceImpl.INVALID_CSRF_TOKEN,
+			yesterday
+		);
+		report.setInvalidCsrfCounter(invalidCsrfCounter);
+
+		return report;
 	}
 
 	private static void put(Map<String, String> ctx, String key, long value) {

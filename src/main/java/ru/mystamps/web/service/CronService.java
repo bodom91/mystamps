@@ -17,12 +17,9 @@
  */
 package ru.mystamps.web.service;
 
-import ru.mystamps.web.service.dto.AdminDailyReport;
-
 public interface CronService {
 	int PURGE_AFTER_DAYS = 3;
 	
 	void sendDailyStatistics();
-	AdminDailyReport getDailyReport();
 	void purgeUsersActivations();
 }
